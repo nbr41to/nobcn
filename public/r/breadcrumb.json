@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb",
+  "type": "registry:component",
+  "title": "Breadcrumb",
+  "description": "パンくずリスト。pathに基づいて自動生成されます。",
+  "files": [
+    {
+      "path": "src/registry/components/breadcrumb.tsx",
+      "content": "\"use client\";\n\nimport Link from \"next/link\";\nimport { usePathname } from \"next/navigation\";\nimport { Fragment } from \"react\";\nimport * as Primitive from \"@/components/ui/breadcrumb\";\n\nexport const Breadcrumb = () => {\n  const pathname = usePathname();\n  const pathSegments = pathname?.split(\"/\").filter((segment) => segment) || [];\n  const breadcrumbItems = pathSegments.map((segment, index) => {\n    const name = segment\n      .replace(/-/g, \" \")\n      .replace(/^./, (str) => str.toUpperCase());\n    const href = \"/\" + pathSegments.slice(0, index + 1).join(\"/\");\n    const isLast = index === pathSegments.length - 1;\n    return { name, href, isLast };\n  });\n\n  return (\n    <Primitive.Breadcrumb>\n      <Primitive.BreadcrumbList>\n        {breadcrumbItems.map(({ name: segment, href, isLast }) =>\n          isLast ? (\n            <Primitive.BreadcrumbItem key={href}>\n              <Primitive.BreadcrumbPage>{segment}</Primitive.BreadcrumbPage>\n            </Primitive.BreadcrumbItem>\n          ) : (\n            <Fragment key={href}>\n              <Primitive.BreadcrumbItem className=\"hidden md:block\">\n                <Primitive.BreadcrumbLink asChild>\n                  <Link href={href}>{segment}</Link>\n                </Primitive.BreadcrumbLink>\n              </Primitive.BreadcrumbItem>\n              <Primitive.BreadcrumbSeparator className=\"hidden md:block\" />\n            </Fragment>\n          ),\n        )}\n      </Primitive.BreadcrumbList>\n    </Primitive.Breadcrumb>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/breadcrumb.tsx"
+    }
+  ]
+}

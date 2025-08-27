@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "file-input",
+  "type": "registry:component",
+  "title": "File Input",
+  "description": "A multiple file input component.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "input"
+  ],
+  "files": [
+    {
+      "path": "src/registry/components/file-input.tsx",
+      "content": "\"use client\";\n\nimport { Trash2 } from \"lucide-react\";\nimport { useMemo, useRef, useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\n\nconst UploadedFileList = () => {\n  const inputRef = useRef<HTMLInputElement>(null);\n  const [inputFiles, setInputFiles] = useState<FileList | null>(null);\n\n  const selectedFileArray: File[] = useMemo(() => {\n    return inputFiles ? [...Array.from(inputFiles)] : [];\n  }, [inputFiles]);\n\n  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    if (!e.target.files) return;\n    if (!inputRef.current?.files) return;\n    const newFileArray = [\n      ...selectedFileArray,\n      ...Array.from(e.target.files),\n    ].filter(\n      (file, index, self) =>\n        self.findIndex((f) => f.name === file.name) === index, // 重複を削除\n    );\n    const dt = new DataTransfer();\n    newFileArray.forEach((file) => {\n      dt.items.add(file);\n    });\n    inputRef.current.files = dt.files; // input内のFileListを更新\n    setInputFiles(dt.files); // Reactのstateを更新\n  };\n\n  const handleDelete = (index: number) => {\n    if (!inputRef.current?.files) return;\n    const dt = new DataTransfer();\n    selectedFileArray.forEach((file, i) => {\n      if (i !== index) {\n        dt.items.add(file);\n      }\n    });\n    inputRef.current.files = dt.files; // input内のFileListを更新\n    setInputFiles(dt.files); // Reactのstateを更新\n  };\n\n  return (\n    <div>\n      <Input type=\"file\" multiple onChange={handleChange} ref={inputRef} />\n      <div className=\"w-fit space-y-3\">\n        {selectedFileArray.map((file, index) => (\n          <div\n            key={file.name}\n            className=\"flex items-center justify-between gap-2\"\n          >\n            <div>{file.name}</div>\n            <Button\n              type=\"button\"\n              size=\"icon\"\n              variant=\"destructive\"\n              onClick={() => handleDelete(index)}\n            >\n              <Trash2 />\n            </Button>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n};\n\nexport { UploadedFileList };\n",
+      "type": "registry:component",
+      "target": "components/file-input.tsx"
+    }
+  ]
+}

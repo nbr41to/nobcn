@@ -27,7 +27,7 @@
       "registryDependencies": ["button", "dropdown-menu"],
       "files": [
         {
-          "path": "src/components/registry/mode-toggle.tsx",
+          "path": "src/registry/components/mode-toggle.tsx",
           "type": "registry:component",
           "target": "components/mode-toggle.tsx"
         }
@@ -40,7 +40,7 @@
       "description": "パンくずリスト。pathに基づいて自動生成されます。",
       "files": [
         {
-          "path": "src/components/registry/breadcrumb.tsx",
+          "path": "src/registry/components/breadcrumb.tsx",
           "type": "registry:component",
           "target": "components/breadcrumb.tsx"
         }
