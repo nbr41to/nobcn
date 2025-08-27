@@ -1,7 +1,11 @@
+"use client";
+
+import { Trash2 } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const InputMultiFileListControlComponent = () => {
+const UploadedFileList = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputFiles, setInputFiles] = useState<FileList | null>(null);
 
@@ -49,9 +53,14 @@ const InputMultiFileListControlComponent = () => {
             className="flex items-center justify-between gap-2"
           >
             <div>{file.name}</div>
-            <button type="button" onClick={() => handleDelete(index)}>
-              削除
-            </button>
+            <Button
+              type="button"
+              size="icon"
+              variant="destructive"
+              onClick={() => handleDelete(index)}
+            >
+              <Trash2 />
+            </Button>
           </div>
         ))}
       </div>
@@ -59,4 +68,4 @@ const InputMultiFileListControlComponent = () => {
   );
 };
 
-export { InputMultiFileListControlComponent };
+export { UploadedFileList };

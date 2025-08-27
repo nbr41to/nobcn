@@ -1,5 +1,7 @@
 {
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindConfig": "./tailwind.config.ts",
-  "tailwindAttributes": ["class", "className"]
+  "tailwindAttributes": ["class", "className"],
+  "tabWidth": 2,
+  "useTabs": false
 }
