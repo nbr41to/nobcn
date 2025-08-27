@@ -23,7 +23,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header className="flex justify-between h-16 shrink-0 items-center gap-2">
+          <header className="flex h-16 shrink-0 items-center justify-between gap-2">
             <h1>nobcn</h1>
             <ModeToggle />
           </header>

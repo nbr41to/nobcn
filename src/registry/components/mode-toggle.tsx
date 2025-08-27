@@ -29,8 +29,8 @@ function ModeToggle() {
           size="icon"
           className="rounded-full hover:bg-orange-200 dark:hover:bg-yellow-400/20"
         >
-          <Sun className="dark:-rotate-90 rotate-0 scale-100 text-orange-500 transition-all dark:scale-0" />
-          <MoonStar className="absolute rotate-90 scale-0 text-yellow-400 transition-all dark:rotate-0 dark:scale-100" />
+          <Sun className="scale-100 rotate-0 text-orange-500 transition-all dark:scale-0 dark:-rotate-90" />
+          <MoonStar className="absolute scale-0 rotate-90 text-yellow-400 transition-all dark:scale-100 dark:rotate-0" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
