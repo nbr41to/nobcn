@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getComponentSources } from "@/catalog/component-source";
 import { components } from "@/catalog/components";
 import {
   ComponentPlayground,
@@ -29,6 +30,7 @@ export default async function ComponentPage({
   const { slug } = await params;
   const item = components.find((component) => component.slug === slug);
   if (!item) notFound();
+  const sources = await getComponentSources(slug);
   const next = components[(components.indexOf(item) + 1) % components.length];
   const storybook =
     process.env.NEXT_PUBLIC_STORYBOOK_URL || "http://localhost:6010";
@@ -78,7 +80,12 @@ export default async function ComponentPage({
           </a>
         </div>
         <section id="preview" aria-label="プレビュー">
-          <ComponentPlayground name={slug} code={item.code} />
+          <ComponentPlayground
+            key={slug}
+            name={slug}
+            code={item.code}
+            sources={sources}
+          />
         </section>
         <section id="installation" className="mt-12">
           <h2 className="text-lg font-semibold">インストール</h2>

@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  outputFileTracingIncludes: {
+    "/components/*": [
+      "./src/components/ui/**/*.tsx",
+      "./src/registry/components/**/*.tsx",
+    ],
+  },
 };
 
 export default nextConfig;

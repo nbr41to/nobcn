@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button";
 export function CodeBlock({
   code,
   label = "tsx",
+  scrollable = false,
 }: {
   code: string;
   label?: string;
+  scrollable?: boolean;
 }) {
   const [status, setStatus] = useState("");
   return (
@@ -38,9 +40,16 @@ export function CodeBlock({
           </Button>
         </div>
       </div>
-      <pre className="overflow-x-auto p-4 text-xs leading-7">
-        <code>{code}</code>
-      </pre>
+      <section
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: Keyboard users need to scroll long source files.
+        tabIndex={0}
+        aria-label={`${label}のコード`}
+        className={`overflow-auto p-4 text-xs leading-7 focus-visible:outline-2 focus-visible:outline-ring ${scrollable ? "max-h-[36rem]" : ""}`}
+      >
+        <pre>
+          <code>{code}</code>
+        </pre>
+      </section>
     </div>
   );
 }
