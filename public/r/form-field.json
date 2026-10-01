@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form-field",
+  "title": "Form Field",
+  "description": "必須表示と入力例を備えた日本語フォームの最小単位。ラベルと補足、エラーを自動生成したIDで入力欄に関連付けます。",
+  "dependencies": [
+    "cn",
+    "@base-ui/react",
+    "class-variance-authority",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "src/registry/components/form-field.tsx",
+      "content": "\"use client\";\n\nimport { cn } from \"cn\";\nimport type { ComponentProps } from \"react\";\nimport { useId } from \"react\";\nimport { Input } from \"@/components/ui/input\";\n\nexport type FormFieldProps = ComponentProps<typeof Input> & {\n  label: string;\n  description?: string;\n  error?: string;\n};\n\n/** Label, help text and errors always stay connected to their input. */\nexport function FormField({\n  label,\n  description,\n  error,\n  id: providedId,\n  required,\n  className,\n  ...props\n}: FormFieldProps) {\n  const generatedId = useId();\n  const id = providedId ?? generatedId;\n  const describedBy =\n    [\n      props[\"aria-describedby\"],\n      description && `${id}-description`,\n      error && `${id}-error`,\n    ]\n      .filter(Boolean)\n      .join(\" \") || undefined;\n  return (\n    <div className={cn(\"@container/field w-full space-y-2\", className)}>\n      <label\n        htmlFor={id}\n        className=\"flex flex-wrap items-center gap-2 text-sm font-medium\"\n      >\n        {label}\n        {required && (\n          <span className=\"rounded bg-accent px-1.5 py-0.5 text-[10px] text-accent-foreground\">\n            必須\n          </span>\n        )}\n      </label>\n      <Input\n        {...props}\n        id={id}\n        required={required}\n        aria-invalid={error ? true : props[\"aria-invalid\"]}\n        aria-describedby={describedBy}\n        className=\"min-h-11 text-base @sm/field:text-sm\"\n      />\n      {description && (\n        <p\n          id={`${id}-description`}\n          className=\"text-xs leading-6 text-muted-foreground\"\n        >\n          {description}\n        </p>\n      )}\n      {error && (\n        <p\n          id={`${id}-error`}\n          role=\"alert\"\n          className=\"text-xs leading-6 text-destructive\"\n        >\n          {error}\n        </p>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "@components/form-field.tsx"
+    },
+    {
+      "path": "src/components/ui/input.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\"\nimport { Input as InputPrimitive } from \"@base-ui/react/input\"\nimport { cn } from \"cn\"\n\nfunction Input({ className, type, ...props }: React.ComponentProps<\"input\">) {\n  return (\n    <InputPrimitive\n      type={type}\n      data-slot=\"input\"\n      className={cn(\n        \"h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Input }\n",
+      "type": "registry:ui",
+      "target": "@ui/input.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

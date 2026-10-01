@@ -25,7 +25,7 @@ https://ui.shadcn.com/docs/registry
 
 ## 技術スタック
 
-**Next.js 15** アプリケーション：
+**Next.js 16** アプリケーション：
 
 - **Bun** JavaScript ランタイム
 - **React 19** with TypeScript
@@ -40,14 +40,16 @@ https://ui.shadcn.com/docs/registry
 
 - `src/app/` - Next.js App Router ディレクトリ
 - `src/components/ui/` - shadcn/ui コンポーネント
-- `src/components/` - カスタムコンポーネント
+- `src/registry/components/` - 配布するカスタムコンポーネント
+- `src/catalog/` - カタログ、共通デモ、Storybook
+- `src/components/site/` - サイト専用UI
 - `src/lib/` - ユーティリティ関数
 - `src/hooks/` - カスタムフック
 
 ### shadcn/ui 設定
 
 - **components.json**: shadcn/ui の設定ファイル
-- **Style**: new-york スタイル、stone ベースカラー
+- **Style**: base-nova（Base UI版）、noblogを標準テーマに使用
 - **Registry**: https://ui.shadcn.com/registry
 - **パッケージ**: clsx, tailwind-merge, class-variance-authority, lucide-react
 
@@ -55,7 +57,7 @@ https://ui.shadcn.com/docs/registry
 
 - **TypeScript**: `@/*` パスマッピング（`./src/*`を指している）
 - **Biome**: Next.js と React ドメインで設定、自動インポート整理
-- **フォント**: `next/font/google` を使用した Geist Sans と Geist Mono
+- **フォント**: Fontsourceで自己ホストするNoto Sans JP / Baloo 2 / Fira Code
 - **スタイリング**: CSS 変数によるテーマ設定、自動ダークモード対応
 
 ## 開発ノート
@@ -71,12 +73,24 @@ https://ui.shadcn.com/docs/registry
 - Tailwind ユーティリティクラス中心
 - CSS 変数によるテーマカラー（`--background`, `--foreground`）
 - `prefers-color-scheme` による自動ダークモード
-- フォント変数は root layout で定義、CSS で参照
+- フォントと配色は src/styles/tokens.css に定義。Registryビルドで配布用CSSとcssVarsを同期
 
 ### その他
 
 - **Bun** を JavaScript ランタイムとして使用
 - App Router 使用（Pages Router ではない）
-- dev、build の両方で Turbopack 有効
+- dev、build の両方で Turbopack 有効。buildはRegistryを先に生成
+- `bun run storybook` は http://localhost:6010 で起動
+- `bun run test:stories` でChromium上の操作とアクセシビリティを検証
 - Biome が従来の ESLint/Prettier セットアップを代替
 - すべてのスクリプト実行は `bun run` を使用
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
