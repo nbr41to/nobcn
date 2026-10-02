@@ -1,50 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "nobcn",
-  "homepage": "https://nobcn.vercel.app",
-  "items": [
-    {
-      "name": "file-input",
-      "type": "registry:component",
-      "title": "File Input",
-      "description": "A multiple file input component.",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": ["input"],
-      "files": [
-        {
-          "path": "src/registry/components/file-input.tsx",
-          "type": "registry:component",
-          "target": "components/file-input.tsx"
-        }
-      ]
-    },
-    {
-      "name": "mode-toggle",
-      "type": "registry:component",
-      "title": "mode toggle",
-      "description": "A dark mode toggle component.",
-      "dependencies": ["lucide-react", "next-themes"],
-      "registryDependencies": ["button", "dropdown-menu"],
-      "files": [
-        {
-          "path": "src/registry/components/mode-toggle.tsx",
-          "type": "registry:component",
-          "target": "components/mode-toggle.tsx"
-        }
-      ]
-    },
-    {
-      "name": "breadcrumb",
-      "type": "registry:component",
-      "title": "Breadcrumb",
-      "description": "パンくずリスト。pathに基づいて自動生成されます。",
-      "files": [
-        {
-          "path": "src/registry/components/breadcrumb.tsx",
-          "type": "registry:component",
-          "target": "components/breadcrumb.tsx"
-        }
-      ]
-    }
-  ]
+  "homepage": "https://github.com/nbr41to/nobcn",
+  "include": ["../../registry.json"]
 }

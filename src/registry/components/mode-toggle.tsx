@@ -1,52 +1,49 @@
 "use client";
 
-import { MoonStar, Sun } from "lucide-react";
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
-import type * as React from "react";
+import { Monitor, Moon, Sun } from "lucide-react";
+import { ThemeProvider, useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-function ModeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
-}
+export const ModeProvider = ThemeProvider;
 
-function ModeToggle() {
-  const { setTheme } = useTheme();
-
+export function ModeToggle() {
+  const { theme, setTheme } = useTheme();
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full hover:bg-orange-200 dark:hover:bg-yellow-400/20"
-        >
-          <Sun className="scale-100 rotate-0 text-orange-500 transition-all dark:scale-0 dark:-rotate-90" />
-          <MoonStar className="absolute scale-0 rotate-90 text-yellow-400 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
+      <DropdownMenuTrigger
+        render={
+          <Button variant="outline" size="icon" aria-label="表示モードを変更" />
+        }
+      >
+        <Sun className="size-4 dark:hidden" />
+        <Moon className="hidden size-4 dark:block" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
+      <DropdownMenuContent align="end" className="min-w-40">
+        <DropdownMenuRadioGroup
+          value={theme ?? "system"}
+          onValueChange={setTheme}
+        >
+          <DropdownMenuRadioItem value="light">
+            <Sun />
+            ライト
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="dark">
+            <Moon />
+            ダーク
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="system">
+            <Monitor />
+            システム
+          </DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
-
-export { ModeToggle, ModeProvider };

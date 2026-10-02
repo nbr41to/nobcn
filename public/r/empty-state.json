@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty-state",
+  "title": "Empty State",
+  "description": "データがない理由と、次にできることを示します。親コンテナが32rem以上になると横並び、それ未満では縦並びになります。",
+  "dependencies": [
+    "cn",
+    "@base-ui/react",
+    "class-variance-authority",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "src/registry/components/empty-state.tsx",
+      "content": "import { cn } from \"cn\";\nimport { Inbox } from \"lucide-react\";\nimport type { ReactNode } from \"react\";\n\nexport interface EmptyStateProps {\n  title: string;\n  description?: string;\n  icon?: ReactNode;\n  action?: ReactNode;\n  className?: string;\n}\n\nexport function EmptyState({\n  title,\n  description,\n  icon,\n  action,\n  className,\n}: EmptyStateProps) {\n  return (\n    <div\n      className={cn(\n        \"@container/empty w-full rounded-xl border border-dashed bg-card\",\n        className,\n      )}\n    >\n      <div className=\"flex flex-col items-center gap-4 p-6 text-center @lg/empty:flex-row @lg/empty:p-8 @lg/empty:text-left\">\n        <div\n          aria-hidden=\"true\"\n          className=\"flex size-12 shrink-0 items-center justify-center rounded-xl border bg-muted text-muted-foreground\"\n        >\n          {icon ?? <Inbox className=\"size-5\" />}\n        </div>\n        <div className=\"min-w-0 flex-1 space-y-1\">\n          <p className=\"text-sm font-medium leading-7\">{title}</p>\n          {description && (\n            <p className=\"text-xs leading-6 text-muted-foreground\">\n              {description}\n            </p>\n          )}\n        </div>\n        {action && <div className=\"shrink-0\">{action}</div>}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "@components/empty-state.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

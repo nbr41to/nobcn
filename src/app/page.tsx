@@ -1,9 +1,4 @@
-import { UploadedFileList } from "@/registry/components/file-input";
-
+import { CatalogPage } from "@/components/site/catalog-page";
 export default function Home() {
-  return (
-    <div>
-      <UploadedFileList />
-    </div>
-  );
+  return <CatalogPage />;
 }
